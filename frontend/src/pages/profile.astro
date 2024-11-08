@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Loading...</h1>
+    </div>
+    <script>
+import type { string } from "astro:schema"
+
+        const title = document.querySelector(".title") as HTMLHeadingElement
+
+        const checkAuth = async() => {
+            const res = await fetch(`http://localhost:3600/check-auth`,{
+                credentials: "include"
+            })
+            if(res.ok){
+                const data = await res.json()
+                console.log(data)
+                title.innerHTML = `Welcome to your profile ${data.firstname} ${data.lastname}`
+                const userData = document.createElement("div")
+                userData.innerHTML = `
+                    <ul>
+                        <li>First name: ${data.firstname}</li>
+                        <li>Last name: ${data.lastname}</li>
+                        <li>Username: ${data.username}</li>
+                    </ul>
+                `
+                document.querySelector(".container")?.append(userData)
+            }
+        }
+
+        
+
+        const getUserInfo = async(id: string) => {
+
+            const res = await fetch(`http://localhost:3600/${id}`)
+            
+        }
+
+        checkAuth()
+    </script>
+</body>
+</html>

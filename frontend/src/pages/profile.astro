@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <header>
+        <div class="LOGO">
+            LOGO
+        </div>
+        <nav>
+            <ul>
+                <a href="/"><li>Home</li></a>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h1 class="title">Loading...</h1>
+    </div>
+    <script>
+
+        const title = document.querySelector(".title") as HTMLHeadingElement
+
+        const checkAuth = async() => {
+            const res = await fetch(`http://localhost:3600/check-auth`,{
+                credentials: "include"
+            })
+            if(res.ok){
+                const data = await res.json()
+                title.innerHTML = `Welcome to your profile ${data.firstname} ${data.lastname}`
+                const userData = document.createElement("div")
+                userData.innerHTML = `
+                    <ul>
+                        <li>First name: ${data.firstname}</li>
+                        <li>Last name: ${data.lastname}</li>
+                        <li>Username: ${data.username}</li>
+                    </ul>
+                    <button class="logout-btn">Log out</button>
+                `
+                userData.querySelector(".logout-btn")?.addEventListener("click", async() => {
+                    const res = await fetch(`http://localhost:3600/logout`,{
+                        credentials: "include"
+                    })
+                    if(res.ok){
+                        window.location.href = "/login"
+                    }
+                })
+                document.querySelector(".container")?.append(userData)
+            }
+        }
+
+        checkAuth()
+    </script>
+</body>
+</html>
+<style>
+    body{
+        margin: 0;
+    }
+    .container{
+        padding: 30px;
+    }
+	header{
+        background-color: rgb(57, 163, 195);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+        padding: 0 30px; 
+	}
+	nav ul{
+		display: flex;
+		gap: 20px;
+	}
+	ul{
+		list-style: none;
+	}
+	a{
+		color: black;
+		text-decoration: none;
+	}
+	a:hover{
+		cursor: pointer
+	}
+</style>

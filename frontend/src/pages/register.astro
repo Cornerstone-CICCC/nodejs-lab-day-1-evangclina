@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <header>
+        <div class="LOGO">
+            LOGO
+        </div>
+        <nav>
+            <ul>
+                <a href="/"><li>Home</li></a>
+                <a href="/login"><li>Log In</li></a>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Create an account</h1>
+        <form class="login-form">
+            <label>
+                <span>First Name</span>
+                <input type="text" name="firstname" autocomplete="off" id="firstname" required>
+            </label>
+            <label>
+                <span>Last Name</span>
+                <input type="text" name="lastname" autocomplete="off" id="lastname" required>
+            </label>
+            <label>
+                <span>Username</span>
+                <input type="text" name="username" autocomplete="off" id="username" required>
+            </label>
+            <label>
+                <span>Password</span>
+                <input type="password" name="password" required>
+            </label>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+    <script>
+        const form = document.querySelector('.login-form') as HTMLFormElement
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault()
+            const formData = new FormData(form)
+            const firstname = formData.get("firstname")
+            const lastname = formData.get("lastname")
+            const username = formData.get("username")
+            const password = formData.get("password")
+
+            const response = await fetch(`http://localhost:3600/signup`, {
+                method: "POST", 
+                headers: {
+					"Content-Type": 'application/json',
+				},
+				body: JSON.stringify({
+                    "firstname": firstname, 
+                    "lastname": lastname,
+					"username": username,
+					"password": password
+				}),
+				credentials: 'include'
+            })
+            const data = await response.json()
+            
+            if(response.ok){
+                window.location.href = "/login"
+            }
+
+        })
+    </script>
+</body>
+</html>
+
+<style>
+    body{
+        margin: 0;
+    }
+    .container{
+        padding: 30px;
+    }
+	header{
+        background-color: rgb(57, 163, 195);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+        padding: 0 30px; 
+	}
+	nav ul{
+		display: flex;
+		gap: 20px;
+	}
+	ul{
+		list-style: none;
+	}
+	a{
+		color: black;
+		text-decoration: none;
+	}
+	a:hover{
+		cursor: pointer
+	}
+</style>

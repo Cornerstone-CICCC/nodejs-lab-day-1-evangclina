@@ -6,11 +6,20 @@
     <title>Login</title>
 </head>
 <body>
+    <header>
+        <div class="LOGO">
+            LOGO
+        </div>
+        <nav>
+            <ul>
+                <a href="/"><li>Home</li></a>
+            </ul>
+        </nav>
+    </header>
     <div class="container">
         <h1 class="title">Loading...</h1>
     </div>
     <script>
-import type { string } from "astro:schema"
 
         const title = document.querySelector(".title") as HTMLHeadingElement
 
@@ -20,7 +29,6 @@ import type { string } from "astro:schema"
             })
             if(res.ok){
                 const data = await res.json()
-                console.log(data)
                 title.innerHTML = `Welcome to your profile ${data.firstname} ${data.lastname}`
                 const userData = document.createElement("div")
                 userData.innerHTML = `
@@ -29,20 +37,50 @@ import type { string } from "astro:schema"
                         <li>Last name: ${data.lastname}</li>
                         <li>Username: ${data.username}</li>
                     </ul>
+                    <button class="logout-btn">Log out</button>
                 `
+                userData.querySelector(".logout-btn")?.addEventListener("click", async() => {
+                    const res = await fetch(`http://localhost:3600/logout`,{
+                        credentials: "include"
+                    })
+                    if(res.ok){
+                        window.location.href = "/login"
+                    }
+                })
                 document.querySelector(".container")?.append(userData)
             }
-        }
-
-        
-
-        const getUserInfo = async(id: string) => {
-
-            const res = await fetch(`http://localhost:3600/${id}`)
-            
         }
 
         checkAuth()
     </script>
 </body>
 </html>
+<style>
+    body{
+        margin: 0;
+    }
+    .container{
+        padding: 30px;
+    }
+	header{
+        background-color: rgb(57, 163, 195);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+        padding: 0 30px; 
+	}
+	nav ul{
+		display: flex;
+		gap: 20px;
+	}
+	ul{
+		list-style: none;
+	}
+	a{
+		color: black;
+		text-decoration: none;
+	}
+	a:hover{
+		cursor: pointer
+	}
+</style>

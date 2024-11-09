@@ -84,6 +84,8 @@ const checkAuth = (req: Request, res: Response) => {
 // logoutUser()
 const logoutUser = (req: Request, res: Response) => {
     res.clearCookie("isAuthenticated")
+    res.clearCookie("userId")
+    res.json({ message: "User logged out" })
 }
 
 

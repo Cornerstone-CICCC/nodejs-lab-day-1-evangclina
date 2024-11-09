@@ -11,6 +11,52 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+			<header>
+				<div class="LOGO">
+					LOGO
+				</div>
+				<nav>
+					<ul>
+						<a href="/login"><li>Log In</li></a>
+						<a href="/register"><li>Sign Up</li></a>
+					</ul>
+				</nav>
+			</header>
+			<div class="container">
+			<main>
+				<h3>Content :D</h3>
+			</main>
+		</div>
 	</body>
 </html>
+
+<style>
+
+	body{
+        margin: 0;
+    }
+    .container{
+        padding: 30px;
+    }
+	header{
+		background-color: rgb(57, 163, 195);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 30px; 
+	}
+	nav ul{
+		display: flex;
+		gap: 20px;
+	}
+	ul{
+		list-style: none;
+	}
+	a{
+		color: black;
+		text-decoration: none;
+	}
+	a:hover{
+		cursor: pointer
+	}
+</style>

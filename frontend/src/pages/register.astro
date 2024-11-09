@@ -6,6 +6,17 @@
     <title>Login</title>
 </head>
 <body>
+    <header>
+        <div class="LOGO">
+            LOGO
+        </div>
+        <nav>
+            <ul>
+                <a href="/"><li>Home</li></a>
+                <a href="/login"><li>Log In</li></a>
+            </ul>
+        </nav>
+    </header>
     <div class="container">
         <h1>Create an account</h1>
         <form class="login-form">
@@ -62,3 +73,33 @@
     </script>
 </body>
 </html>
+
+<style>
+    body{
+        margin: 0;
+    }
+    .container{
+        padding: 30px;
+    }
+	header{
+        background-color: rgb(57, 163, 195);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+        padding: 0 30px; 
+	}
+	nav ul{
+		display: flex;
+		gap: 20px;
+	}
+	ul{
+		list-style: none;
+	}
+	a{
+		color: black;
+		text-decoration: none;
+	}
+	a:hover{
+		cursor: pointer
+	}
+</style>
